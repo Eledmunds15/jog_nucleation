@@ -30,13 +30,13 @@ def main():
 
     Fe_edge = BCCEdge111Dislocation(alat, C11, C12, C44, symbol="Fe") # Create dislocation object
 
-    edge_bulk, edge_dislo = Fe_edge.build_cylinder(radius=DISLO_CYL_RADIUS) # Create a single plane of cylinder around the dislocation
+    edge_bulk_plane, edge_dislo_plane = Fe_edge.build_cylinder(radius=DISLO_CYL_RADIUS) # Create a single plane of cylinder around the dislocation
 
-    edge_dislo_long = edge_dislo.repeat((1,1,DISLO_LEN)) # Replicate the cylinder along the dislocation axis (z)
+    edge_dislo_cylinder = edge_dislo_plane.repeat((1,1,DISLO_LEN)) # Replicate the cylinder along the dislocation axis (z)
 
-    print(f"Number of atoms: {len(edge_dislo_long)}") # Find the number of atoms in the sim
+    print(f"Number of atoms: {len(edge_dislo_cylinder)}") # Find the number of atoms in the sim
 
-    write(os.path.join(OUTPUT_DIR, 'dislo.lmp'), edge_dislo_long, format="lammps-data", specorder=['Fe']) # Write the file out to lammps input file
+    write(os.path.join(OUTPUT_DIR, 'dislo.lmp'), edge_dislo_cylinder, format="lammps-data", specorder=['Fe']) # Write the file out to lammps input file
 
     return None
 
